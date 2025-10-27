@@ -4,6 +4,15 @@ export default defineNuxtConfig({
   devtools: {
     enabled: false,
   },
+  nitro: {
+    typescript: {
+      tsConfig: {
+        compilerOptions: {
+          lib: ["dom"]
+        }
+      }
+    }
+  },
   modules: ["@nuxt/ui"],
   css: ['~/assets/css/main.css'],
   app: {
