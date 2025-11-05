@@ -6,40 +6,38 @@ export async function getEpisodes(program: string): Promise<Episode[]> {
       await page.goto(`https://www.tfm.co.jp/podcast/${program}`)
       await page.waitForSelector(".p-episode_list article")
 
-      return await page.evaluate(() => {
-        const elements = Array.from(document.querySelectorAll(".p-episode_list article"))
-        const episodes = elements.map(e => {
-          // メタ情報
-          const metaContent = e.querySelector(".p-episode_info")?.textContent ?? ""
-          const [publishedAtRaw, length] = metaContent.split("|").map((s) => s.trim());
-          const publishedAt = new Date(publishedAtRaw).getTime()
-          const thumbnail = e.querySelector("img")?.src ?? ""
+      const articles = await page.$$(".p-episode_list article")
+      const episodes: Episode[] = []
+      for (const article of articles) {
+        // メタ情報
+        const metaContent = await article.$eval(".p-episode_info", el => el.textContent)
+        const [publishedAtRaw, length] = metaContent.split("|").map((s) => s.trim());
+        const publishedAt = new Date(publishedAtRaw).getTime()
+        const thumbnail = await article.$eval("img", img => img.src)
 
-          // タイトル情報
-          const titleContent = e.querySelector(".p-episode_ttl")?.textContent ?? ""
-          const title = titleContent.trim()
+        // タイトル情報
+        const titleContent = await article.$eval(".p-episode_ttl", el => el.textContent)
+        const title = titleContent.trim()
 
-          // 説明文
-          const descriptionContent = e.querySelector(".p-episode_text")?.textContent ?? ""
-          const description = descriptionContent.trim().replace(/\n\s+/g, "\n")
+        // 説明文
+        const descriptionContent = await article.$eval(".p-episode_text", el => el.textContent)
+        const description = descriptionContent.trim().replace(/\n\s+/g, "\n")
 
-          // 音源
-          const audioElement = e.querySelector("audio")
-          const audio = audioElement?.src ?? ""
-          const id = audio.split("/").at(-1)?.replace(/\.mp3.*/, "") ?? ""
+        // 音源
+        const audio = await article.$eval("audio", el => el.src)
+        const id = audio.split("/").at(-1)?.replace(/\.mp3.*/, "") ?? ""
 
-          return {
-            id,
-            title,
-            description,
-            publishedAt,
-            length,
-            audio,
-            thumbnail,
-          }
+        episodes.push({
+          id,
+          title,
+          description,
+          publishedAt,
+          length,
+          audio,
+          thumbnail,
         })
+      }
 
-        return episodes
-      })
+      return episodes
   })
 }

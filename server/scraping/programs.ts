@@ -11,16 +11,16 @@ export async function searchPrograms(keyword: string): Promise<Program[]> {
     await page.waitForSelector("#programList")
 
     // 検索結果を取得
-    return await page.evaluate(() => {
-      const elements = Array.from(document.querySelectorAll("#programList > .p-podcast_item"))
-      const programs = elements.map(e => {
-        const title = e.querySelector(".p-podcast_item_ttl")?.textContent ?? ""
-        const href = e.querySelector("a")?.href ?? ""
-        const img = e.querySelector("img")?.src ?? ""
-        const id = href.split("/").at(-2) ?? "" // 末尾にスラッシュがあるので 2番目の要素を取得
-        return { id, title, href, img }
-      }) satisfies Program[]
-      return programs
-    })
+    const programElements = await page.$$("#programList > .p-podcast_item")
+    const programs: Program[] = []
+    for (const element of programElements) {
+      const title = await element.$eval(".p-podcast_item_ttl", el => el.textContent.trim())
+      const href = await element.$eval("a", el => el.href)
+      const img = await element.$eval("img", el => el.src)
+      const id = href.split("/").at(-2) ?? "" // 末尾にスラッシュがあるので 2番目の要素を取得
+      programs.push({ id, title, href, img })
+    }
+
+    return programs
   })
 }
