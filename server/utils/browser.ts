@@ -18,7 +18,6 @@ async function getBrowser(): Promise<Browser> {
 export async function withBrowser<T>(callback: (page: Page) => Promise<T>): Promise<T> {
   const browser = await getBrowser()
   const page = await browser.newPage()
-  await page.goto("https://www.tfm.co.jp/podcast/")
   try {
     return await callback(page)
   } finally {
