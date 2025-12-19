@@ -12,7 +12,7 @@ test("検索できること", async () => {
   expect(result[0]).toMatchObject({
     id: "hitoiki",
     title: "ローソン presents 日向坂46のほっとひといき！",
-    href: "https://www.tfm.co.jp/podcast/hitoiki/",
+    href: "https://www.tfm.co.jp/podcast/hitoiki",
   })
 }, { timeout: 20000 })
 

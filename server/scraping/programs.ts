@@ -17,7 +17,7 @@ export async function searchPrograms(keyword: string): Promise<Program[]> {
       const title = await element.$eval(".p-podcast_item_ttl", el => el.textContent.trim())
       const href = await element.$eval("a", el => el.href)
       const img = await element.$eval("img", el => el.src)
-      const id = href.split("/").at(-2) ?? "" // 末尾にスラッシュがあるので 2番目の要素を取得
+      const id = href.split("/").at(-1) ?? ""
       programs.push({ id, title, href, img })
     }
 
