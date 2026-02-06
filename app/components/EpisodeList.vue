@@ -33,6 +33,16 @@
           trailing-icon="i-lucide-external-link"
           size="sm"
         />
+        <UButton
+          label="Download"
+          color="neutral"
+          variant="soft"
+          trailing-icon="i-lucide-download"
+          size="sm"
+          :disabled="downloadingFile !== null"
+          :loading="downloadingFile === episode.audio"
+          @click="download(episode)"
+        />
       </small>
     </UCard>
   </div>
@@ -45,4 +55,31 @@ defineProps<{
   programId: string
   episodes: Episode[]
 }>()
+
+const toast = useToast()
+const downloadingFile = ref<string | null>(null)
+
+async function download(episode: Episode) {
+  downloadingFile.value = episode.audio
+  const { id } = toast.add({ title: 'ダウンロード中...', icon: 'i-lucide-download', color: 'info', duration: 0 })
+  try {
+    const res = await fetch(episode.audio)
+    const blob = await res.blob()
+    toast.remove(id)
+    toast.add({ title: 'ダウンロード完了', icon: 'i-lucide-check', color: 'success', progress: false })
+
+    // ファイル保存ダイアログの表示
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${episode.title.replace(/[\\/:*?"<>|]/g, '_')}.mp3`
+    a.click()
+    URL.revokeObjectURL(url)
+  } catch {
+    toast.remove(id)
+    toast.add({ title: 'ダウンロードに失敗しました', icon: 'i-lucide-circle-x', color: 'error', progress: false })
+  } finally {
+    downloadingFile.value = null
+  }
+}
 </script>
