@@ -1,4 +1,5 @@
-import puppeteer, { Page, Browser } from "puppeteer"
+import type { Page, Browser } from 'puppeteer'
+import puppeteer from 'puppeteer'
 
 // シングルトンでブラウザインスタンスを保持
 let _browser: Browser | null = null

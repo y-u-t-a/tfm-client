@@ -15,7 +15,7 @@
           :src="episode.thumbnail"
           alt="thumbnail"
           class="w-50 h-30 object-cover rounded"
-        />
+        >
         <p class="h-30 overflow-auto">
           {{ episode.description }}
         </p>
@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Episode } from '~~/shared/model/episode';
+import type { Episode } from '~~/shared/model/episode'
 
 defineProps<{
   programId: string
