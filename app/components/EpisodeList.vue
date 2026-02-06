@@ -61,9 +61,23 @@ const downloadingFile = ref<string | null>(null)
 
 async function download(episode: Episode) {
   downloadingFile.value = episode.audio
-  const { id } = toast.add({ title: 'ダウンロード中...', icon: 'i-lucide-download', color: 'info', duration: 0 })
+  const controller = new AbortController()
+  const { id } = toast.add({
+    title: 'ダウンロード中...',
+    icon: 'i-lucide-download',
+    color: 'info',
+    duration: 0,
+    close: false,
+    orientation: 'horizontal',
+    actions: [{
+      label: 'キャンセル',
+      color: 'info',
+      variant: 'outline',
+      onClick: () => controller.abort(),
+    }],
+  })
   try {
-    const res = await fetch(episode.audio)
+    const res = await fetch(episode.audio, { signal: controller.signal })
     const blob = await res.blob()
     toast.remove(id)
     toast.add({ title: 'ダウンロード完了', icon: 'i-lucide-check', color: 'success', progress: false })
@@ -75,9 +89,13 @@ async function download(episode: Episode) {
     a.download = `${episode.title.replace(/[\\/:*?"<>|]/g, '_')}.mp3`
     a.click()
     URL.revokeObjectURL(url)
-  } catch {
+  } catch (e) {
     toast.remove(id)
-    toast.add({ title: 'ダウンロードに失敗しました', icon: 'i-lucide-circle-x', color: 'error', progress: false })
+    if (e instanceof DOMException && e.name === 'AbortError') {
+      toast.add({ title: 'ダウンロードをキャンセルしました', icon: 'i-lucide-circle-x', color: 'warning', progress: false })
+    } else {
+      toast.add({ title: 'ダウンロードに失敗しました', icon: 'i-lucide-circle-x', color: 'error', progress: false })
+    }
   } finally {
     downloadingFile.value = null
   }
