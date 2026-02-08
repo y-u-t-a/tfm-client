@@ -34,13 +34,11 @@ const route = useRoute()
 const search = ref(route.query.name as string || '')
 
 const { execute, data, pending } = useFetch('/api/programs', {
-  query: { name: route.query.name },
+  query: { name: route.query.name ?? '' },
   immediate: false,
 })
 
 onMounted(() => {
-  if (route.query.name != undefined) {
-    execute()
-  }
+  execute()
 })
 </script>
