@@ -10,6 +10,7 @@
         placeholder="タイトル・本文で絞り込み"
         icon="i-lucide-search"
         class="mb-4 w-full"
+        size="xl"
       />
       <EpisodeList
         :program-id="id"

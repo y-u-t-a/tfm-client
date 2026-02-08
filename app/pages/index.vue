@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2 class="text-xl font-bold mb-4">
+    <h1 class="text-2xl font-bold mb-4">
       番組を検索
-    </h2>
+    </h1>
     <form class="mb-6">
       <UInput
         v-model="search"
