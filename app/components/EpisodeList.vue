@@ -22,7 +22,7 @@
       </div>
       <small class="flex items-center gap-2">
         <span>
-          長さ: {{ episode.length }} / 公開日: {{ new Date(episode.publishedAt).toLocaleString() }}
+          長さ: {{ formatDuration(episode.durationSeconds) }} / 公開日: {{ new Date(episode.publishedAt).toLocaleString() }}
         </span>
         <UButton
           :href="episode.audio"
@@ -99,5 +99,11 @@ async function download(episode: Episode) {
   } finally {
     downloadingFile.value = null
   }
+}
+
+function formatDuration(seconds: number): string {
+  const m = Math.floor(seconds / 60)
+  const s = seconds % 60
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
 }
 </script>

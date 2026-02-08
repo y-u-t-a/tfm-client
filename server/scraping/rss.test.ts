@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { getEpisodes } from './episodes'
+import { getEpisodes } from './rss'
 
 test('エピソード一覧が取得できること', async () => {
   const result = await getEpisodes('hitoiki')
@@ -7,4 +7,6 @@ test('エピソード一覧が取得できること', async () => {
   for (const value of Object.values(result[0])) {
     expect(value).not.toBeFalsy()
   }
-}, { timeout: 30000 })
+  expect(typeof result[0].durationSeconds).toBe('number')
+  expect(result[0].durationSeconds).toBeGreaterThan(0)
+}, { timeout: 10000 })

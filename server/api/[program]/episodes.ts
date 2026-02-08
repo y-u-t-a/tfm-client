@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-import { getEpisodes } from '~~/server/scraping/episodes'
+import { getEpisodes } from '~~/server/scraping/rss'
 
 const paramSchema = z.object({
   program: z.string(),
