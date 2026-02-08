@@ -1,5 +1,8 @@
 <template>
-  <div class="grid gap-4 grid-cols-1 2xl:grid-cols-2">
+  <div
+    v-if="episodes.length > 0"
+    class="grid gap-4 grid-cols-1 2xl:grid-cols-2"
+  >
     <UCard
       v-for="episode in episodes"
       :key="episode.audio"
@@ -45,6 +48,9 @@
         />
       </small>
     </UCard>
+  </div>
+  <div v-else>
+    該当するエピソードが見つかりませんでした
   </div>
 </template>
 
