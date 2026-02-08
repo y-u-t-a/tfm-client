@@ -15,6 +15,11 @@ interface RssItem {
   'enclosure': { '@_url': string }
 }
 
+interface Response {
+  title: string
+  episodes: Episode[]
+}
+
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: '@_',
@@ -36,18 +41,20 @@ async function discoverRssUrl(programId: string): Promise<string> {
   return url
 }
 
-export async function getEpisodes(programId: string): Promise<Episode[]> {
+export async function getEpisodes(programId: string): Promise<Response> {
   const rssUrl = await discoverRssUrl(programId)
   const res = await fetch(rssUrl)
   const xml = await res.text()
   const parsed = parser.parse(xml)
 
-  const items: RssItem[] = parsed?.rss?.channel?.item
+  const channel = parsed?.rss?.channel
+  const title: string = channel?.title ?? ''
+  const items: RssItem[] = channel?.item
   if (!items || !Array.isArray(items)) {
-    return []
+    return { title, episodes: [] }
   }
 
-  return items.map(item => ({
+  const episodes = items.map(item => ({
     id: item.guid,
     title: item.title,
     description: item.description?.trim() ?? '',
@@ -56,6 +63,8 @@ export async function getEpisodes(programId: string): Promise<Episode[]> {
     audio: item.enclosure['@_url'],
     thumbnail: item['itunes:image']?.['@_href'] ?? '',
   }))
+
+  return { title, episodes }
 }
 
 /** itunes:duration を秒数に変換する。秒数(number)、HH:MM:SS、MM:SS 形式に対応 */
