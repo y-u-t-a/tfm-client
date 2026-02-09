@@ -12,7 +12,7 @@ interface RssItem {
   'guid': string
   'itunes:duration': number | string
   'itunes:image'?: { '@_href'?: string }
-  'enclosure': { '@_url': string }
+  'enclosure'?: { '@_url'?: string }
 }
 
 interface Response {
@@ -60,7 +60,7 @@ export async function getEpisodes(programId: string): Promise<Response> {
     description: item.description?.trim() ?? '',
     durationSeconds: parseDuration(item['itunes:duration']),
     publishedAt: new Date(item.pubDate).getTime(),
-    audio: item.enclosure['@_url'],
+    audio: item.enclosure?.['@_url'] ?? '',
     thumbnail: item['itunes:image']?.['@_href'] ?? '',
   }))
 
