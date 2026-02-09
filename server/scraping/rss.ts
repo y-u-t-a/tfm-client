@@ -74,8 +74,9 @@ export async function getEpisodes(programId: string): Promise<Response> {
 /** itunes:duration を秒数に変換する。秒数(number)、HH:MM:SS、MM:SS 形式に対応 */
 function parseDuration(value: number | string): number {
   if (typeof value === 'number') return value
-  const parts = value.split(':').map(Number)
-  if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2]
-  if (parts.length === 2) return parts[0] * 60 + parts[1]
+
+  const parts = value.split(':').map(parseInt).filter(v => !isNaN(v))
+  if (parts.length === 3) return parts[0]! * 3600 + parts[1]! * 60 + parts[2]!
+  if (parts.length === 2) return parts[0]! * 60 + parts[1]!
   return Number(value) || 0
 }
