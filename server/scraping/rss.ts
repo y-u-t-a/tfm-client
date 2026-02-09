@@ -44,6 +44,10 @@ async function discoverRssUrl(programId: string): Promise<string> {
 export async function getEpisodes(programId: string): Promise<Response> {
   const rssUrl = await discoverRssUrl(programId)
   const res = await fetch(rssUrl)
+  if (!res.ok) {
+    throw new Error(`Failed to fetch RSS feed: ${rssUrl}`)
+  }
+
   const xml = await res.text()
   const parsed = parser.parse(xml)
 
