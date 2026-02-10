@@ -17,9 +17,9 @@
           v-if="episode.thumbnail"
           :src="episode.thumbnail"
           alt="thumbnail"
-          class="w-50 h-30 object-cover rounded"
+          class="w-1/6 aspect-square object-cover rounded"
         >
-        <p class="h-30 overflow-auto">
+        <p class="overflow-auto text-sm">
           {{ episode.description }}
         </p>
       </div>
