@@ -12,10 +12,7 @@
         class="mb-4 w-full"
         size="xl"
       />
-      <EpisodeList
-        :program-id="id"
-        :episodes="filteredEpisodes"
-      />
+      <EpisodeList :program-id="id" :episodes="filteredEpisodes" />
     </template>
   </div>
 </template>
@@ -28,7 +25,7 @@ const { execute, data, pending } = useFetch(`/api/${id}/episodes`, { immediate: 
 const router = useRouter()
 
 useHead({
-  title: computed(() => data.value ? `${data.value.title} - エピソード` : 'エピソード'),
+  title: computed(() => (data.value ? `${data.value.title} - エピソード` : 'エピソード')),
 })
 
 const filterText = computed({
@@ -40,8 +37,8 @@ const filteredEpisodes = computed(() => {
 
   const q = filterText.value.toLowerCase()
   if (!q) return data.value.episodes
-  return data.value.episodes.filter(ep =>
-    ep.title.toLowerCase().includes(q) || ep.description.toLowerCase().includes(q),
+  return data.value.episodes.filter(
+    ep => ep.title.toLowerCase().includes(q) || ep.description.toLowerCase().includes(q)
   )
 })
 

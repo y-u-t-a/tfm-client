@@ -8,26 +8,29 @@ Tokyo FM Podcast Client — a full-stack Nuxt 4 app that scrapes Tokyo FM's podc
 
 ## Commands
 
-- **Install**: `bun install`
-- **Dev server**: `bun run dev` (http://localhost:3000)
-- **Build + preview**: `bun run start`
-- **Lint**: `bun run lint` / `bun run lint:fix`
-- **Test all**: `bun test`
-- **Single test**: `bun test server/scraping/programs.test.ts`
+- **Install**: `vp install`
+- **Dev server**: `vp run dev` (http://localhost:3000)
+- **Build + preview**: `vp run start`
+- **Lint**: `vp lint` / `vp lint --fix`
+- **Check (fmt + lint + typecheck)**: `vp check`
+- **Test all**: `vp test`
+- **Single test**: `vp test server/scraping/programs.test.ts`
 
-Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `bun test`.
+Git hooks (lefthook): pre-commit runs `vp lint --fix`, pre-push runs `vp test`.
 
 ## Architecture
 
-**Runtime**: Bun + Nuxt 4 (Vue 3 + Nitro server)
+**Runtime**: Vite+ + Nuxt 4 (Vue 3 + Nitro server)
 
 ### Frontend (`app/`)
+
 - Nuxt 4 directory layout — pages, components, layouts live under `app/`
 - File-based routing: `/` (program search) → `/:program/episodes` (episode list)
 - UI: Nuxt UI v4 components (`UApp`, `UContainer`, `UInput`, `UCard`, `UButton`, `UProgress`, `useToast`) + Lucide icons
 - Data fetching via `useFetch()` with `immediate: false` + `onMounted(() => execute())` to avoid SSR for scraping-backed endpoints
 
 ### Backend (`server/`)
+
 - Nitro auto-routes under `server/api/`
 - API: `GET /api/programs?name=<query>`, `GET /api/:program/episodes`
 - Query/route param validation with Zod schemas via `getValidatedQuery` / `getValidatedRouterParams`
@@ -35,10 +38,12 @@ Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `bun test`.
 - RSS feed discovery and parsing in `server/scraping/rss.ts`
 
 ### Shared types (`shared/model/`)
+
 - `Program` (id, title, href, img) and `Episode` (id, title, description, durationSeconds, publishedAt, audio, thumbnail)
 - Used by both frontend and backend via Nuxt auto-imports
 
 ### Key pattern: Puppeteer singleton
+
 `server/utils/browser.ts` manages a single browser instance. `withBrowser(callback)` creates a page, runs the callback, and closes the page.
 
 ## Code Style
@@ -49,8 +54,21 @@ Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `bun test`.
 - Use Composition API with `<script setup>`, `defineProps<{...}>()` for typed props
 - Import aliases: `~/` for `app/` directory, `~~/` for project root (e.g., `~~/shared/model/program`)
 - Use `interface` (not `type`) for shared model definitions
-- Tests use `bun:test` with long timeouts (20-30s) since they hit the real TFM website
+- Tests use Vitest (`vite-plus/test`) with long timeouts (20-30s) since they hit the real TFM website
 
 ## Nuxt UI MCP
 
 A Nuxt UI MCP server is configured in `.mcp.json` for looking up Nuxt UI v4 component APIs. Use it when working with UI components.
+
+## Vite+ Notes
+
+This project uses Vite+, a unified toolchain (`vp` CLI) wrapping Vite, Rolldown, Vitest, Oxlint, and Oxfmt. Run `vp help` or `vp <command> --help` for details.
+
+### Common Pitfalls
+
+- **Do not use pnpm/npm/Yarn directly** — use `vp install`, `vp add`, `vp remove`, etc.
+- **Do not run `vp vitest` or `vp oxlint`** — use `vp test` and `vp lint` instead.
+- **`vp` commands take precedence over `package.json` scripts** — use `vp run <script>` to run a script explicitly.
+- **Do not install Vitest, Oxlint, Oxfmt, or tsdown directly** — Vite+ bundles them.
+- **Import from `vite-plus`**, not `vite` or `vitest` — e.g., `import { defineConfig } from 'vite-plus'`, `import { expect, test } from 'vite-plus/test'`.
+- **Use `vp dlx`** instead of `npx`/`pnpm dlx`.

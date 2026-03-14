@@ -1,10 +1,10 @@
 pre-commit:
   commands:
-    lint-fix:
-      run: bun run lint:fix
+    check:
+      run: vp check --fix
       stage_fixed: true
 
 pre-push:
   commands:
     test:
-      run: bun test
+      run: vp test

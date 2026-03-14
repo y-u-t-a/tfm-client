@@ -7,7 +7,7 @@
 Make sure to install dependencies:
 
 ```bash
-bun install
+vp install
 ```
 
 ## Development Server
@@ -15,13 +15,13 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-bun dev
+vp run dev
 ```
 
 ## Testing
 
 ```bash
-bun test
+vp test
 ```
 
 ## Preview
@@ -29,5 +29,5 @@ bun test
 Locally preview production build:
 
 ```bash
-bun start
+vp run start
 ```

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1 class="text-2xl font-bold mb-4">
-      番組を検索
-    </h1>
+    <h1 class="text-2xl font-bold mb-4">番組を検索</h1>
     <form class="mb-6">
       <UInput
         v-model="search"
@@ -12,16 +10,10 @@
         class="w-full"
         size="xl"
       />
-      <button
-        hidden
-        type="submit"
-      />
+      <button hidden type="submit" />
     </form>
     <AppLoading :loading="pending" />
-    <ProgramList
-      v-if="!pending && data"
-      :programs="data.programs"
-    />
+    <ProgramList v-if="!pending && data" :programs="data.programs" />
   </div>
 </template>
 
@@ -31,7 +23,7 @@ useHead({
 })
 
 const route = useRoute()
-const search = ref(route.query.name as string || '')
+const search = ref((route.query.name as string) || '')
 
 const { execute, data, pending } = useFetch('/api/programs', {
   query: { name: route.query.name ?? '' },

@@ -6,8 +6,8 @@ const paramSchema = z.object({
   program: z.string(),
 })
 
-export default defineEventHandler(async (event) => {
-  const { program } = await getValidatedRouterParams(event, paramSchema.parse)
+export default defineEventHandler(async event => {
+  const { program } = await getValidatedRouterParams(event, data => paramSchema.parse(data))
   const { title, episodes } = await getEpisodes(program)
   return {
     title,

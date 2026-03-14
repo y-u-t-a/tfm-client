@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/ui', '@nuxt/eslint'],
+  modules: ['@nuxt/ui'],
   devtools: {
     enabled: false,
   },
@@ -17,15 +17,6 @@ export default defineNuxtConfig({
         compilerOptions: {
           lib: ['dom'],
         },
-      },
-    },
-  },
-  eslint: {
-    config: {
-      stylistic: {
-        indent: 2,
-        quotes: 'single',
-        semi: false,
       },
     },
   },

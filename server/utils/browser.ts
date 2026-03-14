@@ -9,7 +9,7 @@ async function getBrowser(): Promise<Browser> {
     if (_browser.connected) {
       return _browser
     } else {
-      _browser.close()
+      void _browser.close()
     }
   }
   _browser = await puppeteer.launch()
