@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt dev",
+    "test": "vp test",
     "start": "nuxt build && nuxt preview",
     "lint": "vp lint",
     "lint:fix": "vp lint --fix",
