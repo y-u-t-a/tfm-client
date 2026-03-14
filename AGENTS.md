@@ -9,7 +9,7 @@ Tokyo FM Podcast Client — a full-stack Nuxt 4 app that scrapes Tokyo FM's podc
 ## Commands
 
 - **Install**: `vp install`
-- **Dev server**: `vp dev` (http://localhost:3000)
+- **Dev server**: `vp run dev` (http://localhost:3000)
 - **Build + preview**: `vp run start`
 - **Lint**: `vp lint` / `vp lint --fix`
 - **Check (fmt + lint + typecheck)**: `vp check`
