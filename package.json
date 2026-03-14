@@ -21,7 +21,6 @@
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.97",
-    "@nuxt/eslint": "^1.15.2",
     "lefthook": "^2.1.4",
     "vite-plus": "^0.1.11"
   },

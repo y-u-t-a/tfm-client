@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
     "VoidZero.vite-plus-extension-pack"
   ]
 }
