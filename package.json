@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "nuxt dev",
     "start": "nuxt build && nuxt preview",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
     "postinstall": "nuxt prepare && lefthook install"
   },
   "dependencies": {

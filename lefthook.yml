@@ -1,7 +1,7 @@
 pre-commit:
   commands:
     lint-fix:
-      run: vp run lint:fix
+      run: vp lint --fix
       stage_fixed: true
 
 pre-push:
