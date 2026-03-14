@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="episodes.length > 0"
-    class="grid gap-4 grid-cols-1 2xl:grid-cols-2"
-  >
+  <div v-if="episodes.length > 0" class="grid gap-4 grid-cols-1 2xl:grid-cols-2">
     <UCard
       v-for="episode in episodes"
       :key="episode.audio"
@@ -18,14 +15,15 @@
           :src="episode.thumbnail"
           alt="thumbnail"
           class="w-1/6 aspect-square object-cover rounded"
-        >
+        />
         <p class="overflow-auto text-sm">
           {{ episode.description }}
         </p>
       </div>
       <small class="flex items-center gap-2">
         <span>
-          長さ: {{ formatDuration(episode.durationSeconds) }} / 公開日: {{ new Date(episode.publishedAt).toLocaleString() }}
+          長さ: {{ formatDuration(episode.durationSeconds) }} / 公開日:
+          {{ new Date(episode.publishedAt).toLocaleString() }}
         </span>
         <UButton
           :href="episode.audio"
@@ -49,9 +47,7 @@
       </small>
     </UCard>
   </div>
-  <div v-else>
-    該当するエピソードが見つかりませんでした
-  </div>
+  <div v-else>該当するエピソードが見つかりませんでした</div>
 </template>
 
 <script setup lang="ts">
@@ -75,18 +71,25 @@ async function download(episode: Episode) {
     duration: 0,
     close: false,
     orientation: 'horizontal',
-    actions: [{
-      label: 'キャンセル',
-      color: 'info',
-      variant: 'outline',
-      onClick: () => controller.abort(),
-    }],
+    actions: [
+      {
+        label: 'キャンセル',
+        color: 'info',
+        variant: 'outline',
+        onClick: () => controller.abort(),
+      },
+    ],
   })
   try {
     const res = await fetch(episode.audio, { signal: controller.signal })
     const blob = await res.blob()
     toast.remove(id)
-    toast.add({ title: 'ダウンロード完了', icon: 'i-lucide-check', color: 'success', progress: false })
+    toast.add({
+      title: 'ダウンロード完了',
+      icon: 'i-lucide-check',
+      color: 'success',
+      progress: false,
+    })
 
     // ファイル保存ダイアログの表示
     const url = URL.createObjectURL(blob)
@@ -98,9 +101,19 @@ async function download(episode: Episode) {
   } catch (e) {
     toast.remove(id)
     if (e instanceof DOMException && e.name === 'AbortError') {
-      toast.add({ title: 'ダウンロードをキャンセルしました', icon: 'i-lucide-circle-x', color: 'warning', progress: false })
+      toast.add({
+        title: 'ダウンロードをキャンセルしました',
+        icon: 'i-lucide-circle-x',
+        color: 'warning',
+        progress: false,
+      })
     } else {
-      toast.add({ title: 'ダウンロードに失敗しました', icon: 'i-lucide-circle-x', color: 'error', progress: false })
+      toast.add({
+        title: 'ダウンロードに失敗しました',
+        icon: 'i-lucide-circle-x',
+        color: 'error',
+        progress: false,
+      })
     }
   } finally {
     downloadingFile.value = null

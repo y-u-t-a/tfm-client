@@ -6,13 +6,13 @@ import type { Episode } from '~~/shared/model/episode'
  * @_ プレフィックスは XML 属性を表す（attributeNamePrefix で設定）
  */
 interface RssItem {
-  'title': string
-  'description': string
-  'pubDate': string
-  'guid': string
+  title: string
+  description: string
+  pubDate: string
+  guid: string
   'itunes:duration': number | string
   'itunes:image'?: { '@_href'?: string }
-  'enclosure'?: { '@_url'?: string }
+  enclosure?: { '@_url'?: string }
 }
 
 interface Response {
@@ -75,7 +75,10 @@ export async function getEpisodes(programId: string): Promise<Response> {
 function parseDuration(value: number | string): number {
   if (typeof value === 'number') return value
 
-  const parts = value.split(':').map(parseInt).filter(v => !isNaN(v))
+  const parts = value
+    .split(':')
+    .map(parseInt)
+    .filter(v => !isNaN(v))
   if (parts.length === 3) return parts[0]! * 3600 + parts[1]! * 60 + parts[2]!
   if (parts.length === 2) return parts[0]! * 60 + parts[1]!
   return Number(value) || 0

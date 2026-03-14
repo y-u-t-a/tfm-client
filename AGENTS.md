@@ -23,12 +23,14 @@ Git hooks (lefthook): pre-commit runs `vp lint --fix`, pre-push runs `vp test`.
 **Runtime**: Vite+ + Nuxt 4 (Vue 3 + Nitro server)
 
 ### Frontend (`app/`)
+
 - Nuxt 4 directory layout — pages, components, layouts live under `app/`
 - File-based routing: `/` (program search) → `/:program/episodes` (episode list)
 - UI: Nuxt UI v4 components (`UApp`, `UContainer`, `UInput`, `UCard`, `UButton`, `UProgress`, `useToast`) + Lucide icons
 - Data fetching via `useFetch()` with `immediate: false` + `onMounted(() => execute())` to avoid SSR for scraping-backed endpoints
 
 ### Backend (`server/`)
+
 - Nitro auto-routes under `server/api/`
 - API: `GET /api/programs?name=<query>`, `GET /api/:program/episodes`
 - Query/route param validation with Zod schemas via `getValidatedQuery` / `getValidatedRouterParams`
@@ -36,10 +38,12 @@ Git hooks (lefthook): pre-commit runs `vp lint --fix`, pre-push runs `vp test`.
 - RSS feed discovery and parsing in `server/scraping/rss.ts`
 
 ### Shared types (`shared/model/`)
+
 - `Program` (id, title, href, img) and `Episode` (id, title, description, durationSeconds, publishedAt, audio, thumbnail)
 - Used by both frontend and backend via Nuxt auto-imports
 
 ### Key pattern: Puppeteer singleton
+
 `server/utils/browser.ts` manages a single browser instance. `withBrowser(callback)` creates a page, runs the callback, and closes the page.
 
 ## Code Style

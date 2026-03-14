@@ -2,7 +2,7 @@ import type { Program } from '~~/shared/model/program'
 import { withBrowser } from '../utils/browser'
 
 export async function searchPrograms(keyword: string): Promise<Program[]> {
-  return withBrowser(async (page) => {
+  return withBrowser(async page => {
     await page.goto('https://www.tfm.co.jp/podcast/')
 
     // 検索
