@@ -38,7 +38,7 @@ const filteredEpisodes = computed(() => {
   const q = filterText.value.toLowerCase()
   if (!q) return data.value.episodes
   return data.value.episodes.filter(
-    ep => ep.title.toLowerCase().includes(q) || ep.description.toLowerCase().includes(q),
+    ep => ep.title.toLowerCase().includes(q) || ep.description.toLowerCase().includes(q)
   )
 })
 
