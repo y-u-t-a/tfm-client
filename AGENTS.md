@@ -68,4 +68,3 @@ This project uses Vite+, a unified toolchain (`vp` CLI) wrapping Vite, Rolldown,
 - **Do not install Vitest, Oxlint, Oxfmt, or tsdown directly** — Vite+ bundles them.
 - **Import from `vite-plus`**, not `vite` or `vitest` — e.g., `import { defineConfig } from 'vite-plus'`, `import { expect, test } from 'vite-plus/test'`.
 - **Use `vp dlx`** instead of `npx`/`pnpm dlx`.
-<!--VITE PLUS END-->
