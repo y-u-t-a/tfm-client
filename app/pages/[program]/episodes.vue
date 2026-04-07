@@ -13,7 +13,6 @@
         size="xl"
       />
       <EpisodeList
-        :program-id="id"
         :episodes="filteredEpisodes"
       />
     </template>

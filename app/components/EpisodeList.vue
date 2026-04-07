@@ -58,7 +58,6 @@
 import type { Episode } from '~~/shared/model/episode'
 
 defineProps<{
-  programId: string
   episodes: Episode[]
 }>()
 
