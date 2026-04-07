@@ -25,7 +25,7 @@ Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `bun test`.
 - Nuxt 4 directory layout — pages, components, layouts live under `app/`
 - File-based routing: `/` (program search) → `/:program/episodes` (episode list)
 - UI: Nuxt UI v4 components (`UApp`, `UContainer`, `UInput`, `UCard`, `UButton`, `UProgress`, `useToast`) + Lucide icons
-- Data fetching via `useFetch()` with `immediate: false` + `onMounted(() => execute())` to avoid SSR for scraping-backed endpoints
+- Data fetching via `useFetch()` with `immediate: true`
 
 ### Backend (`server/`)
 - Nitro auto-routes under `server/api/`

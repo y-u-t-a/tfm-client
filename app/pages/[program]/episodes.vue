@@ -24,7 +24,7 @@
 const route = useRoute('program-episodes')
 const id = route.params.program as string
 
-const { execute, data, pending } = useFetch(`/api/${id}/episodes`, { immediate: false })
+const { data, pending } = useFetch(`/api/${id}/episodes`, { immediate: true })
 const router = useRouter()
 
 useHead({
@@ -43,9 +43,5 @@ const filteredEpisodes = computed(() => {
   return data.value.episodes.filter(ep =>
     ep.title.toLowerCase().includes(q) || ep.description.toLowerCase().includes(q),
   )
-})
-
-onMounted(() => {
-  execute()
 })
 </script>
