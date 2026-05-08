@@ -1,4 +1,4 @@
-import { expect, test } from 'bun:test'
+import { expect, test } from 'vitest'
 import { getEpisodes } from './rss'
 
 test('エピソード一覧が取得できること', async () => {
@@ -11,4 +11,4 @@ test('エピソード一覧が取得できること', async () => {
   }
   expect(typeof episode.durationSeconds).toBe('number')
   expect(episode.durationSeconds).toBeGreaterThan(0)
-}, { timeout: 10000 })
+}, 10000)

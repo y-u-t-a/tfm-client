@@ -7,7 +7,7 @@
 Make sure to install dependencies:
 
 ```bash
-bun install
+npm install
 ```
 
 ## Development Server
@@ -15,13 +15,13 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-bun dev
+npm run dev
 ```
 
 ## Testing
 
 ```bash
-bun test
+npm run test
 ```
 
 ## Preview
@@ -29,5 +29,5 @@ bun test
 Locally preview production build:
 
 ```bash
-bun start
+npm run start
 ```

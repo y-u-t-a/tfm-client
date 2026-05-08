@@ -8,18 +8,18 @@ Tokyo FM Podcast Client — a full-stack Nuxt 4 app that scrapes Tokyo FM's podc
 
 ## Commands
 
-- **Install**: `bun install`
-- **Dev server**: `bun run dev` (http://localhost:3000)
-- **Build + preview**: `bun run start`
-- **Lint**: `bun run lint` / `bun run lint:fix`
-- **Test all**: `bun test`
-- **Single test**: `bun test server/scraping/programs.test.ts`
+- **Install**: `npm install`
+- **Dev server**: `npm run dev` (http://localhost:3000)
+- **Build + preview**: `npm run start`
+- **Lint**: `npm run lint` / `npm run lint:fix`
+- **Test all**: `npm run test`
+- **Single test**: `npm run test server/scraping/programs.test.ts`
 
-Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `bun test`.
+Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `npm run test`.
 
 ## Architecture
 
-**Runtime**: Bun + Nuxt 4 (Vue 3 + Nitro server)
+**Runtime**: Node + Nuxt 4 (Vue 3 + Nitro server)
 
 ### Frontend (`app/`)
 - Nuxt 4 directory layout — pages, components, layouts live under `app/`
@@ -49,7 +49,7 @@ Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `bun test`.
 - Use Composition API with `<script setup>`, `defineProps<{...}>()` for typed props
 - Import aliases: `~/` for `app/` directory, `~~/` for project root (e.g., `~~/shared/model/program`)
 - Use `interface` (not `type`) for shared model definitions
-- Tests use `bun:test` with long timeouts (20-30s) since they hit the real TFM website
+- Tests use `vitest` with long timeouts (20-30s) since they hit the real TFM website
 
 ## Nuxt UI MCP
 
