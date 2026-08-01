@@ -67,7 +67,7 @@
           />
         </div>
 
-        <div class="flex items-center justify-center gap-2 mb-8">
+        <div class="flex items-center justify-center gap-2 mb-4">
           <UButton
             v-for="rate in PLAYBACK_RATES"
             :key="rate"
@@ -76,6 +76,18 @@
             color="neutral"
             size="sm"
             @click="setRate(rate)"
+          />
+        </div>
+
+        <div class="flex justify-center mb-8">
+          <UButton
+            label="ダウンロード"
+            color="neutral"
+            variant="soft"
+            trailing-icon="i-lucide-download"
+            size="sm"
+            :loading="downloadingFile !== null"
+            @click="download(episode)"
           />
         </div>
 
@@ -103,6 +115,8 @@ const episode = computed(() => data.value?.episodes.find(ep => ep.id === episode
 useHead({
   title: computed(() => episode.value ? `${episode.value.title} - 再生` : '再生'),
 })
+
+const { downloadingFile, download } = useEpisodeDownload()
 
 const audioEl = useTemplateRef('audioEl')
 const playing = ref(false)
