@@ -14,6 +14,7 @@
       />
       <EpisodeList
         :episodes="filteredEpisodes"
+        :program-id="id"
       />
     </template>
   </div>

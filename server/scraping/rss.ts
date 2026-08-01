@@ -9,7 +9,8 @@ interface RssItem {
   'title': string
   'description': string
   'pubDate': string
-  'guid': string
+  /** isPermaLink 属性が付いている場合はオブジェクトになる */
+  'guid': string | number | { '#text': string | number }
   'itunes:duration': number | string
   'itunes:image'?: { '@_href'?: string }
   'enclosure'?: { '@_url'?: string }
@@ -59,7 +60,7 @@ export async function getEpisodes(programId: string): Promise<Response> {
   }
 
   const episodes = items.map(item => ({
-    id: item.guid,
+    id: String(typeof item.guid === 'object' ? item.guid['#text'] : item.guid),
     title: item.title,
     description: item.description?.trim() ?? '',
     durationSeconds: parseDuration(item['itunes:duration']),
@@ -72,11 +73,14 @@ export async function getEpisodes(programId: string): Promise<Response> {
 }
 
 /** itunes:duration を秒数に変換する。秒数(number)、HH:MM:SS、MM:SS 形式に対応 */
-function parseDuration(value: number | string): number {
+export function parseDuration(value: number | string): number {
   if (typeof value === 'number') return value
 
-  const parts = value.split(':').map(parseInt).filter(v => !isNaN(v))
-  if (parts.length === 3) return parts[0]! * 3600 + parts[1]! * 60 + parts[2]!
-  if (parts.length === 2) return parts[0]! * 60 + parts[1]!
+  // 基数を明示しないと map がインデックスを第2引数として渡してしまう
+  const parts = value.split(':').map(v => parseInt(v, 10))
+  if (!parts.some(v => isNaN(v))) {
+    if (parts.length === 3) return parts[0]! * 3600 + parts[1]! * 60 + parts[2]!
+    if (parts.length === 2) return parts[0]! * 60 + parts[1]!
+  }
   return Number(value) || 0
 }
