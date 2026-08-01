@@ -11,18 +11,18 @@
     "postinstall": "nuxt prepare && lefthook install"
   },
   "dependencies": {
-    "@nuxt/ui": "4.8.2",
-    "fast-xml-parser": "5.7.3",
-    "nuxt": "4.4.8",
-    "puppeteer": "25.1.0",
-    "vue": "3.5.35",
-    "vue-router": "5.1.0",
+    "@nuxt/ui": "4.10.0",
+    "fast-xml-parser": "5.10.1",
+    "nuxt": "4.5.1",
+    "puppeteer": "25.4.0",
+    "vue": "3.5.40",
+    "vue-router": "5.2.0",
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "1.2.111",
-    "@nuxt/eslint": "1.15.2",
-    "lefthook": "2.1.9",
-    "vitest": "4.1.8"
+    "@iconify-json/lucide": "1.2.121",
+    "@nuxt/eslint": "1.16.0",
+    "lefthook": "2.1.10",
+    "vitest": "4.1.10"
   }
 }
