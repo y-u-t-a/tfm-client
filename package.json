@@ -6,6 +6,7 @@
     "dev": "nuxt dev",
     "start": "nuxt build && nuxt preview",
     "test": "vitest run",
+    "typecheck": "nuxt typecheck",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "nuxt prepare && lefthook install"
@@ -23,6 +24,7 @@
     "@iconify-json/lucide": "1.2.121",
     "@nuxt/eslint": "1.16.0",
     "lefthook": "2.1.10",
-    "vitest": "4.1.10"
+    "vitest": "4.1.10",
+    "vue-tsc": "^3.3.9"
   }
 }
