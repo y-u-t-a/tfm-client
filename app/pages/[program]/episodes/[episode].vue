@@ -28,6 +28,7 @@
           @ended="playing = false"
           @timeupdate="currentTime = audioEl?.currentTime ?? 0"
           @loadedmetadata="duration = audioEl?.duration ?? 0"
+          @ratechange="playbackRate = audioEl?.playbackRate ?? 1"
         />
 
         <USlider
@@ -122,7 +123,8 @@ const audioEl = useTemplateRef('audioEl')
 const playing = ref(false)
 const currentTime = ref(0)
 const duration = ref(0)
-const playbackRate = ref(1)
+/** エピソードを変えるとページごと作り直されるため、再生速度はアプリ全体で共有して保持する */
+const playbackRate = useState('playbackRate', () => 1)
 
 /** audio のメタデータ読み込み前や長さ不明のストリームでは RSS 由来の長さで代用 */
 const totalDuration = computed(() =>
