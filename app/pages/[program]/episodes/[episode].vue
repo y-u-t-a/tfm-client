@@ -145,6 +145,13 @@ function setRate(rate: number) {
   if (audioEl.value) audioEl.value.playbackRate = rate
 }
 
+// 画面に遷移して audio が描画されたら自動再生（ブラウザに拒否された場合は停止状態のまま）
+watch(audioEl, (audio) => {
+  if (!audio) return
+  audio.playbackRate = playbackRate.value
+  audio.play().catch(() => {})
+})
+
 // OS のメディアコントロール（ロック画面など）に曲情報を表示
 watchEffect(() => {
   if (!import.meta.client || !episode.value || !('mediaSession' in navigator)) return
