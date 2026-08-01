@@ -24,6 +24,8 @@ interface Response {
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: '@_',
+  // item が 1 件だけだと配列ではなくオブジェクトで返ってくるため、常に配列に揃える
+  isArray: name => name === 'item',
 })
 
 async function discoverRssUrl(programId: string): Promise<string> {
