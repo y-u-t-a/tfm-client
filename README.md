@@ -18,6 +18,12 @@ Start the development server on `http://localhost:3000`:
 npm run dev
 ```
 
+## Type Check
+
+```bash
+npm run typecheck
+```
+
 ## Testing
 
 ```bash

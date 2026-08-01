@@ -12,10 +12,11 @@ Tokyo FM Podcast Client — a full-stack Nuxt 4 app that scrapes Tokyo FM's podc
 - **Dev server**: `npm run dev` (http://localhost:3000)
 - **Build + preview**: `npm run start`
 - **Lint**: `npm run lint` / `npm run lint:fix`
+- **Type check**: `npm run typecheck` (`nuxt typecheck` — vue-tsc)
 - **Test all**: `npm run test`
 - **Single test**: `npm run test server/scraping/programs.test.ts`
 
-Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `npm run test`.
+Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `npm run typecheck` then `npm run test`.
 
 ## Architecture
 
