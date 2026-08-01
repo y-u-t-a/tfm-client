@@ -103,7 +103,7 @@
 </template>
 
 <script setup lang="ts">
-const PLAYBACK_RATES = [0.75, 1, 1.25, 1.5, 2]
+const PLAYBACK_RATES = [1, 1.25, 1.5, 1.75, 2]
 
 const route = useRoute('program-episodes-episode')
 const programId = route.params.program as string
