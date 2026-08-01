@@ -8,9 +8,19 @@
       :key="episode.audio"
       variant="outline"
       class="flex flex-col justify-between"
+      :ui="{
+        header: 'sm:p-0 p-0',
+      }"
     >
       <template #header>
-        {{ episode.title }}
+        <UButton
+          :to="`/${programId}/episodes/${encodeURIComponent(episode.id)}`"
+          color="neutral"
+          variant="link"
+          class="w-full sm:px-6 py-4 text-black font-bold opacity-100 hover:opacity-80"
+        >
+          {{ episode.title }}
+        </UButton>
       </template>
       <div class="flex items-start gap-4 mb-2">
         <img
@@ -27,14 +37,6 @@
         <span>
           長さ: {{ formatDuration(episode.durationSeconds) }} / 公開日: {{ new Date(episode.publishedAt).toLocaleString() }}
         </span>
-        <UButton
-          :to="`/${programId}/episodes/${encodeURIComponent(episode.id)}`"
-          label="Play"
-          color="neutral"
-          variant="soft"
-          trailing-icon="i-lucide-play"
-          size="sm"
-        />
         <UButton
           label="Download"
           color="neutral"
