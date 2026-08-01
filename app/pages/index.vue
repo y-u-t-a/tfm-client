@@ -18,6 +18,13 @@
       />
     </form>
     <AppLoading :loading="pending" />
+    <UAlert
+      v-if="!pending && error"
+      color="error"
+      variant="subtle"
+      icon="i-lucide-triangle-alert"
+      title="番組情報の取得に失敗しました"
+    />
     <ProgramList
       v-if="!pending && data"
       :programs="data.programs"
@@ -33,7 +40,7 @@ useHead({
 const route = useRoute()
 const search = ref(route.query.name as string || '')
 
-const { data, pending } = useFetch('/api/programs', {
+const { data, pending, error } = useFetch('/api/programs', {
   query: { name: search.value },
   immediate: true,
 })

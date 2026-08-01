@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Tokyo FM Podcast Client — a full-stack Nuxt 4 app that scrapes Tokyo FM's podcast website using Puppeteer and serves a Vue 3 SPA for browsing programs and playing episodes.
+Tokyo FM Podcast Client — a full-stack Nuxt 4 app that scrapes Tokyo FM's podcast website with plain `fetch` and serves a Vue 3 SPA for browsing programs and playing episodes.
 
 ## Commands
 
@@ -32,15 +32,15 @@ Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `npm run typeche
 - Nitro auto-routes under `server/api/`
 - API: `GET /api/programs?name=<query>`, `GET /api/:program/episodes`
 - Query/route param validation with Zod schemas via `getValidatedQuery` / `getValidatedRouterParams`
-- Scraping logic in `server/scraping/` — Puppeteer extracts data from TFM website
+- Scraping logic in `server/scraping/` — no headless browser; data is extracted from HTML with `fetch` + regex
 - RSS feed discovery and parsing in `server/scraping/rss.ts`
 
 ### Shared types (`shared/model/`)
 - `Program` (id, title, href, img) and `Episode` (id, title, description, durationSeconds, publishedAt, audio, thumbnail)
 - Used by both frontend and backend via Nuxt auto-imports
 
-### Key pattern: Puppeteer singleton
-`server/utils/browser.ts` manages a single browser instance. `withBrowser(callback)` creates a page, runs the callback, and closes the page.
+### Key pattern: HTML-embedded JSON
+TFM's podcast top page embeds all program data inline as `const entryData = JSON.parse(\`...\`)`, and its own search is just a client-side `Array.filter()` over it — no backend API is involved. `server/scraping/programs.ts` fetches that page once, extracts the JSON with a regex, caches it in memory (10 min TTL), and reproduces the same title/keyword filter server-side.
 
 ## Code Style
 
