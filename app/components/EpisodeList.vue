@@ -38,6 +38,14 @@
           長さ: {{ formatDuration(episode.durationSeconds) }} / 公開日: {{ new Date(episode.publishedAt).toLocaleString() }}
         </span>
         <UButton
+          label="Play"
+          :to="`/${programId}/episodes/${encodeURIComponent(episode.id)}`"
+          color="neutral"
+          variant="soft"
+          trailing-icon="i-lucide-play"
+          size="sm"
+        />
+        <UButton
           label="Download"
           color="neutral"
           variant="soft"
