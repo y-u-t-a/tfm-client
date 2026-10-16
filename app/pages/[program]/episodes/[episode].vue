@@ -80,7 +80,7 @@
           />
         </div>
 
-        <div class="flex justify-center mb-8">
+        <div class="flex items-center justify-center gap-2 mb-8">
           <UButton
             label="ダウンロード"
             color="neutral"
@@ -89,6 +89,12 @@
             size="sm"
             :loading="downloadingFile !== null"
             @click="download(episode)"
+          />
+          <FavoriteButton
+            :favorite="isFavorite(episodeId)"
+            label="お気に入り"
+            size="sm"
+            @click="toggleFavorite(episodeId)"
           />
         </div>
 
@@ -118,6 +124,7 @@ useHead({
 })
 
 const { downloadingFile, download } = useEpisodeDownload()
+const { isFavorite, toggleFavorite } = useFavoriteEpisodes(programId)
 
 const audioEl = useTemplateRef('audioEl')
 const playing = ref(false)

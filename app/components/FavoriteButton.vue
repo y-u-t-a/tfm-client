@@ -1,21 +1,23 @@
 <template>
   <!-- Lucide には塗りつぶしの星がなく、path に fill="none" が指定されているため、登録済みは path の fill を直接上書きする -->
   <UButton
-    icon="i-lucide-star"
+    :label="label"
+    trailing-icon="i-lucide-star"
     color="neutral"
-    variant="ghost"
-    aria-label="お気に入り"
+    :variant="label ? 'soft' : 'ghost'"
+    :aria-label="label ? label : 'お気に入り'"
     :aria-pressed="favorite"
-    :ui="{ leadingIcon: favorite ? 'text-warning [&_path]:fill-current' : '', base: 'rounded-full' }"
-    @click="toggleFavorite(programId)"
+    :ui="{
+      trailingIcon: favorite ? 'text-warning [&_path]:fill-current' : '',
+      base: label ? '' : 'rounded-full',
+    }"
   />
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  programId: string
+defineProps<{
+  favorite: boolean
+  /** 指定すると Play・Download と同じ見た目のラベル付きボタンになる。省略時は星だけの丸いボタン */
+  label?: string
 }>()
-
-const { isFavorite, toggleFavorite } = useFavoritePrograms()
-const favorite = computed(() => isFavorite(props.programId))
 </script>

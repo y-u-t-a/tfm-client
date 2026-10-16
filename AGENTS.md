@@ -27,7 +27,7 @@ Git hooks (lefthook): pre-commit runs `lint:fix`, pre-push runs `npm run typeche
 - File-based routing: `/` (program search) → `/:program/episodes` (episode list)
 - UI: Nuxt UI v4 components (`UApp`, `UContainer`, `UInput`, `UCard`, `UButton`, `UProgress`, `useToast`) + Lucide icons
 - Data fetching via `useFetch()` with `immediate: true`
-- Favorite program IDs are kept in the browser's `localStorage` via `useFavoritePrograms()` — there is no server-side persistence; the top page resolves them against the full program list
+- Favorite program IDs and episode IDs (grouped by program ID) are kept in the browser's `localStorage` via `useFavoritePrograms()` / `useFavoriteEpisodes(programId)` — there is no server-side persistence; the top page resolves program IDs against the full program list, and the episode list page uses episode IDs for its favorites-only filter (`?favorite=1`)
 
 ### Backend (`server/`)
 - Nitro auto-routes under `server/api/`

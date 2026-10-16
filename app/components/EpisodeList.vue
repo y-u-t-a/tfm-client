@@ -33,7 +33,7 @@
           {{ episode.description }}
         </p>
       </div>
-      <small class="flex items-center gap-2">
+      <small class="flex flex-wrap items-center gap-2">
         <span>
           長さ: {{ formatDuration(episode.durationSeconds) }} / 公開日: {{ new Date(episode.publishedAt).toLocaleString() }}
         </span>
@@ -55,6 +55,12 @@
           :loading="downloadingFile === episode.audio"
           @click="download(episode)"
         />
+        <FavoriteButton
+          :favorite="isFavorite(episode.id)"
+          label="Favorite"
+          size="sm"
+          @click="toggleFavorite(episode.id)"
+        />
       </small>
     </UCard>
   </div>
@@ -66,10 +72,11 @@
 <script setup lang="ts">
 import type { Episode } from '~~/shared/model/episode'
 
-defineProps<{
+const props = defineProps<{
   episodes: Episode[]
   programId: string
 }>()
 
 const { downloadingFile, download } = useEpisodeDownload()
+const { isFavorite, toggleFavorite } = useFavoriteEpisodes(props.programId)
 </script>

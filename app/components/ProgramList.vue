@@ -16,9 +16,10 @@
         <span class="block text-start whitespace-normal break-words">{{ program.title }}</span>
       </NuxtLink>
       <FavoriteButton
-        :program-id="program.id"
+        :favorite="isFavorite(program.id)"
         variant="outline"
         class="absolute top-0.5 right-0.5"
+        @click="toggleFavorite(program.id)"
       />
     </div>
   </div>
@@ -33,4 +34,6 @@ import type { Program } from '~~/shared/model/program'
 defineProps<{
   programs: Program[]
 }>()
+
+const { isFavorite, toggleFavorite } = useFavoritePrograms()
 </script>
