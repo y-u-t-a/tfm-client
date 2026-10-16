@@ -2,9 +2,12 @@
   <div>
     <AppLoading :loading="pending" />
     <template v-if="data">
-      <h1 class="text-2xl font-bold mb-4">
-        {{ data.title }}
-      </h1>
+      <div class="flex items-start mb-4">
+        <FavoriteButton :program-id="id" />
+        <h1 class="text-2xl font-bold">
+          {{ data.title }}
+        </h1>
+      </div>
       <UInput
         v-model.lazy="filterText"
         placeholder="タイトル・本文で絞り込み"

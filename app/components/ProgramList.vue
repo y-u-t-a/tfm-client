@@ -6,7 +6,7 @@
     <div
       v-for="program in programs"
       :key="program.id"
-      class="hover:opacity-80"
+      class="relative hover:opacity-80"
     >
       <NuxtLink :to="`/${program.id}/episodes`">
         <img
@@ -15,6 +15,11 @@
         >
         <span class="block text-start whitespace-normal break-words">{{ program.title }}</span>
       </NuxtLink>
+      <FavoriteButton
+        :program-id="program.id"
+        variant="outline"
+        class="absolute top-0.5 right-0.5"
+      />
     </div>
   </div>
   <div v-else>
