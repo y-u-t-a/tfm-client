@@ -12,6 +12,7 @@
     "postinstall": "nuxt prepare && lefthook install"
   },
   "dependencies": {
+    "@internationalized/date": "3.12.4",
     "@nuxt/ui": "4.11.0",
     "fast-xml-parser": "5.11.1",
     "nuxt": "4.5.2",
